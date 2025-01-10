@@ -113,6 +113,12 @@ const works = [
         title: 'Lost Under - The End',
         image: './images/Lost Under_End.jpg',
         description: 'The final chapter of the Lost Under series, showcasing the ending of the story.'
+    },
+    {
+        id: 20,
+        title: '新作品标题',
+        image: './images/新图片.jpg',
+        description: '作品描述'
     }
 ];
 
@@ -128,8 +134,11 @@ function loadWorks() {
         item.className = 'gallery-item fade-in';
         
         item.innerHTML = `
-            <img src="${work.image}" 
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                 data-src="${work.image}" 
                  alt="${work.title}"
+                 loading="lazy"
+                 class="lazy"
                  onerror="this.style.backgroundColor='rgba(255,0,0,0.2)'"
                  onload="console.log('图片加载成功:', this.src)">
             <div class="gallery-item-title">${work.title}</div>
@@ -142,6 +151,21 @@ function loadWorks() {
         
         gallery.appendChild(item);
     });
+
+    // 添加懒加载观察器
+    const lazyImages = document.querySelectorAll('img.lazy');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
 }
 
 // 添加模态框功能

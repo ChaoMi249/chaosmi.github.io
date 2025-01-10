@@ -162,7 +162,7 @@ body {
 }
 
 .nav-links a:hover {
-    opacity: 1;
+    animation: navFlicker 4s infinite;
     text-shadow: 0 0 8px var(--primary-color);
 }
 
@@ -199,7 +199,7 @@ body {
     text-shadow: 0 0 30px rgba(154, 138, 77, 0.2);
     text-transform: uppercase;
     position: relative;
-    animation: glitch 4s infinite;
+    animation: glitch 4s infinite, titleFlicker 8s infinite;
 }
 
 .hero h1::before,
@@ -216,14 +216,14 @@ body {
 }
 
 .hero h1::before {
-    animation: glitch-1 8s infinite linear alternate-reverse;
+    animation: glitch-1 8s infinite linear alternate-reverse, titleFlicker 8s infinite;
     text-shadow: 2px 0 rgba(154, 77, 77, 0.2);
     left: 2px;
     opacity: 0.4;
 }
 
 .hero h1::after {
-    animation: glitch-2 8s infinite linear alternate-reverse;
+    animation: glitch-2 8s infinite linear alternate-reverse, titleFlicker 8s infinite;
     text-shadow: -2px 0 rgba(77, 154, 154, 0.2);
     left: -2px;
     opacity: 0.4;
@@ -256,12 +256,12 @@ body {
     text-transform: uppercase;
     opacity: 0.9;
     margin-top: 0.5rem;
-    background: linear-gradient(to right, #FFD700, #FFA500);
+    background: linear-gradient(45deg, #9a8a4d, #c4b36e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    text-shadow: 0 0 20px rgba(154, 138, 77, 0.2);
     position: relative;
-    animation: subGlitch 5s infinite;
+    animation: subGlitch 5s infinite, textFlicker 8s infinite;
 }
 
 /* 副标题故障效果 */
@@ -273,42 +273,42 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #FFD700, #FFA500);
+    background: linear-gradient(45deg, #9a8a4d, #c4b36e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero p::before {
-    animation: subGlitch-1 5s infinite linear alternate-reverse;
-    text-shadow: 2px 0 #ff0000;
-    left: 2px;
-    opacity: 0.5;
+    animation: subGlitch-1 8s infinite linear alternate-reverse, textFlicker 8s infinite;
+    text-shadow: 1px 0 rgba(154, 77, 77, 0.2);
+    left: 1px;
+    opacity: 0.4;
 }
 
 .hero p::after {
-    animation: subGlitch-2 5s infinite linear alternate-reverse;
-    text-shadow: -2px 0 #00ffff;
-    left: -2px;
-    opacity: 0.5;
+    animation: subGlitch-2 8s infinite linear alternate-reverse, textFlicker 8s infinite;
+    text-shadow: -1px 0 rgba(77, 154, 154, 0.2);
+    left: -1px;
+    opacity: 0.4;
 }
 
 /* 副标题故障动画 */
 @keyframes subGlitch-1 {
-    0%, 100% { transform: none; opacity: 0.5; }
-    50% { transform: skew(-1deg); opacity: 0; }
-    51% { transform: none; opacity: 0.5; }
-    60% { transform: skew(2deg); opacity: 0.5; }
+    0%, 100% { transform: none; opacity: 0.3; }
+    50% { transform: skew(-0.3deg); opacity: 0; }
+    51% { transform: none; opacity: 0.3; }
+    60% { transform: skew(0.5deg); opacity: 0.3; }
     80% { transform: none; opacity: 0; }
-    81% { transform: skew(1deg); opacity: 0.5; }
+    81% { transform: skew(0.3deg); opacity: 0.3; }
 }
 
 @keyframes subGlitch-2 {
-    0%, 100% { transform: none; opacity: 0.5; }
-    40% { transform: skew(1deg); opacity: 0; }
-    41% { transform: none; opacity: 0.5; }
-    70% { transform: skew(-2deg); opacity: 0.5; }
+    0%, 100% { transform: none; opacity: 0.3; }
+    40% { transform: skew(0.3deg); opacity: 0; }
+    41% { transform: none; opacity: 0.3; }
+    70% { transform: skew(-0.5deg); opacity: 0.3; }
     90% { transform: none; opacity: 0; }
-    91% { transform: skew(-1deg); opacity: 0.5; }
+    91% { transform: skew(-0.3deg); opacity: 0.3; }
 }
 
 /* 添加文字纹理效果 */
@@ -363,7 +363,7 @@ body {
     border-radius: 12px;
     cursor: pointer;
     transform: translateZ(0);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     aspect-ratio: 3/2;
     background: linear-gradient(110deg, #1a1a1a 8%, #222 18%, #1a1a1a 33%);
     background-size: 200% 100%;
@@ -379,9 +379,11 @@ body {
     height: 100%;
     object-fit: cover;
     transform: scale(1);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
     backface-visibility: hidden;
+    opacity: 0.7;
+    filter: brightness(0.85);
 }
 
 .gallery-item-title {
@@ -400,10 +402,14 @@ body {
 
 .gallery-item:hover {
     transform: translateZ(0) scale(1.02);
+    border-color: rgba(196, 179, 110, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 .gallery-item:hover img {
     transform: scale(1.05);
+    opacity: 1;
+    filter: brightness(1);
 }
 
 .gallery-item:hover .gallery-item-title {
@@ -469,12 +475,10 @@ body {
 /* 移除旧的section-title样式 */
 .section-title {
     text-align: center;
-    margin-bottom: 6rem;
+    margin-bottom: 4rem;
     font-size: 3rem;
-    color: var(--text-color);
     position: relative;
     display: inline-block;
-    margin-bottom: 4rem;
     font-family: 'Rajdhani', sans-serif;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -482,9 +486,30 @@ body {
     background: var(--gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+    animation: sectionTitleFlicker 20s infinite;
 }
 
+/* 添加标题闪烁动画 */
+@keyframes sectionTitleFlicker {
+    0%, 100% { opacity: 0.95; }
+    15% { opacity: 0.95; }
+    15.1% { opacity: 0.6; }
+    15.2% { opacity: 0.95; }
+    15.3% { opacity: 0.7; }
+    15.4% { opacity: 0.95; }
+    45% { opacity: 0.95; }
+    45.1% { opacity: 0.6; }
+    45.2% { opacity: 0.95; }
+    45.3% { opacity: 0.7; }
+    45.4% { opacity: 0.95; }
+    75% { opacity: 0.95; }
+    75.1% { opacity: 0.6; }
+    75.2% { opacity: 0.95; }
+    75.3% { opacity: 0.7; }
+    75.4% { opacity: 0.95; }
+}
+
+/* 修改下划线效果 */
 .section-title::after {
     content: '';
     position: absolute;
@@ -495,10 +520,16 @@ body {
     background: var(--primary-color);
     transform: scaleX(0.3);
     transition: transform 0.3s ease;
+    opacity: 0.8;
+    animation: lineFlicker 15s infinite;
 }
 
+/* 悬停效果 */
 .section-title:hover::after {
     transform: scaleX(1);
+    opacity: 1;
+    box-shadow: 0 0 8px var(--primary-color);
+    animation: sectionTitleFlicker 10s infinite;
 }
 
 /* 模态框样式 */
@@ -547,9 +578,7 @@ body {
 }
 
 .modal-close:hover {
-    transform: rotate(90deg);
-    color: var(--primary-color);
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    animation: closeFlicker 4s infinite;
 }
 
 .modal-caption {
@@ -675,6 +704,7 @@ body {
 }
 
 .modal-nav:hover {
+    animation: navButtonFlicker 4s infinite;
     background: var(--primary-color);
     color: var(--background-color);
     transform: translateY(-50%) scale(1.1);
@@ -831,8 +861,7 @@ body {
 }
 
 .social-icon:hover {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 8px var(--primary-color));
+    animation: iconFlicker 4s infinite;
 }
 
 /* 特别调整 Artstation 图标 */
@@ -975,4 +1004,251 @@ body {
             padding-bottom: max(1rem, env(safe-area-inset-bottom));
         }
     }
+}
+
+/* 修改电子闪烁动画 */
+@keyframes textFlicker {
+    0%, 100% { opacity: 0.9; }
+    3% { opacity: 0.6; }
+    6% { opacity: 0.9; }
+    9% { opacity: 0.5; }
+    12% { opacity: 0.9; }
+    30% { opacity: 0.9; }
+    31% { opacity: 0.4; }
+    32% { opacity: 0.9; }
+    70% { opacity: 0.9; }
+    71% { opacity: 0.5; }
+    72% { opacity: 0.9; }
+    73% { opacity: 0.4; }
+    74% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    91% { opacity: 0.5; }
+    92% { opacity: 0.9; }
+}
+
+/* 添加主标题闪烁动画 */
+@keyframes titleFlicker {
+    0%, 100% { opacity: 0.95; }
+    3% { opacity: 0.6; }
+    6% { opacity: 0.95; }
+    7% { opacity: 0.5; }
+    8% { opacity: 0.95; }
+    30% { opacity: 0.95; }
+    31% { opacity: 0.5; }
+    32% { opacity: 0.95; }
+    70% { opacity: 0.95; }
+    71% { opacity: 0.6; }
+    72% { opacity: 0.95; }
+    73% { opacity: 0.5; }
+    74% { opacity: 0.95; }
+    75% { opacity: 0.6; }
+    76% { opacity: 0.95; }
+}
+
+/* 修改伪元素动画 */
+.hero h1::before {
+    /* 保持现有样式 */
+    animation: glitch-1 8s infinite linear alternate-reverse, titleFlicker 8s infinite;
+}
+
+.hero h1::after {
+    /* 保持现有样式 */
+    animation: glitch-2 8s infinite linear alternate-reverse, titleFlicker 8s infinite;
+}
+
+/* 为三个单词添加不同的闪烁效果 */
+.hero h1 span {
+    display: inline-block;
+}
+
+.hero h1 .fragment {
+    animation: fragmentFlicker 20s infinite;
+}
+
+.hero h1 .of {
+    animation: ofFlicker 25s infinite;
+}
+
+.hero h1 .chaos {
+    animation: chaosFlicker 18s infinite;
+}
+
+/* Fragment 闪烁动画 */
+@keyframes fragmentFlicker {
+    0%, 100% { opacity: 0.95; }
+    25% { opacity: 0.6; }
+    25.1% { opacity: 0.95; }
+    25.2% { opacity: 0.7; }
+    25.3% { opacity: 0.95; }
+    85% { opacity: 0.95; }
+    85.1% { opacity: 0.6; }
+    85.2% { opacity: 0.95; }
+}
+
+/* Of 闪烁动画 */
+@keyframes ofFlicker {
+    0%, 100% { opacity: 0.95; }
+    45% { opacity: 0.95; }
+    45.1% { opacity: 0.5; }
+    45.2% { opacity: 0.95; }
+    45.3% { opacity: 0.7; }
+    45.4% { opacity: 0.95; }
+}
+
+/* Chaos 闪烁动画 */
+@keyframes chaosFlicker {
+    0%, 100% { opacity: 0.95; }
+    65% { opacity: 0.95; }
+    65.1% { opacity: 0.5; }
+    65.2% { opacity: 0.95; }
+    65.3% { opacity: 0.6; }
+    65.4% { opacity: 0.95; }
+    65.5% { opacity: 0.7; }
+    65.6% { opacity: 0.95; }
+}
+
+/* 添加背景字体效果 */
+.hero h1 {
+    position: relative;
+}
+
+.hero h1::before {
+    content: 'Fragment of Chaos';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);  /* 2倍大小 */
+    width: 100%;
+    color: var(--primary-color);
+    opacity: 0.1;
+    filter: blur(8px);
+    pointer-events: none;
+    z-index: -1;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    animation: backgroundGlow 15s infinite;
+}
+
+/* 背景文字动画 */
+@keyframes backgroundGlow {
+    0%, 100% { 
+        opacity: 0.1;
+        filter: blur(8px);
+        transform: translate(-50%, -50%) scale(2);
+    }
+    50% { 
+        opacity: 0.15;
+        filter: blur(12px);
+        transform: translate(-50%, -50%) scale(2.1);
+    }
+}
+
+/* 修改主标题样式确保在背景上方 */
+.hero h1 {
+    position: relative;
+    z-index: 1;
+}
+
+/* 调整背景文字响应式 */
+@media (max-width: 768px) {
+    .hero h1::before {
+        transform: translate(-50%, -50%) scale(1.5);  /* 移动端缩小背景字体 */
+    }
+    
+    @keyframes backgroundGlow {
+        0%, 100% { 
+            opacity: 0.1;
+            filter: blur(6px);
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+        50% { 
+            opacity: 0.15;
+            filter: blur(8px);
+            transform: translate(-50%, -50%) scale(1.6);
+        }
+    }
+}
+
+/* 导航链接悬停效果 */
+.nav-links a:hover {
+    animation: navFlicker 4s infinite;
+    text-shadow: 0 0 8px var(--primary-color);
+}
+
+/* 社交图标悬停效果 */
+.social-icon:hover {
+    animation: iconFlicker 4s infinite;
+}
+
+/* 作品标题悬停效果 */
+.gallery-item-title:hover {
+    animation: titleFlicker 4s infinite;
+}
+
+/* 模态框关闭按钮悬停效果 */
+.modal-close:hover {
+    animation: closeFlicker 4s infinite;
+}
+
+/* 导航按钮悬停效果 */
+.modal-nav:hover {
+    animation: navButtonFlicker 4s infinite;
+}
+
+/* 添加通用闪烁动画 */
+@keyframes navFlicker {
+    0%, 100% { opacity: 1; }
+    40% { opacity: 1; }
+    42% { opacity: 0.6; }
+    44% { opacity: 1; }
+    46% { opacity: 0.7; }
+    48% { opacity: 1; }
+}
+
+@keyframes iconFlicker {
+    0%, 100% { opacity: 1; }
+    35% { opacity: 1; }
+    36% { opacity: 0.5; }
+    37% { opacity: 1; }
+    38% { opacity: 0.7; }
+    39% { opacity: 1; }
+}
+
+@keyframes titleFlicker {
+    0%, 100% { opacity: 1; }
+    45% { opacity: 1; }
+    46% { opacity: 0.6; }
+    47% { opacity: 1; }
+    48% { opacity: 0.8; }
+    49% { opacity: 1; }
+}
+
+@keyframes closeFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 1; }
+    51% { opacity: 0.5; }
+    52% { opacity: 1; }
+    53% { opacity: 0.7; }
+    54% { opacity: 1; }
+}
+
+@keyframes navButtonFlicker {
+    0%, 100% { opacity: 1; }
+    55% { opacity: 1; }
+    56% { opacity: 0.6; }
+    57% { opacity: 1; }
+    58% { opacity: 0.8; }
+    59% { opacity: 1; }
+}
+
+/* 添加下划线闪烁动画 */
+@keyframes lineFlicker {
+    0%, 100% { opacity: 0.8; }
+    30% { opacity: 0.8; }
+    30.1% { opacity: 0.4; }
+    30.2% { opacity: 0.8; }
+    60% { opacity: 0.8; }
+    60.1% { opacity: 0.4; }
+    60.2% { opacity: 0.8; }
 }

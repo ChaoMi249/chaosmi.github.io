@@ -1,0 +1,864 @@
+/* 导入字体 */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #FFD700;
+    --text-color: #FFFFFF;
+    --background-color: #0A0A0A;
+    --hover-color: #1A1A1A;
+    --nav-bg: rgba(10, 10, 10, 0.95);
+    --accent-color: #FFD700;
+    --gradient: linear-gradient(45deg, #FFD700, #FFA500);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text-color);
+    background-color: rgb(8, 8, 8);
+    position: relative;
+}
+
+/* 三层背景效果 */
+/* 1. 底层固定纹理 */
+.base-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./images/Texture film.jpg');
+    background-size: cover;
+    opacity: 0.15;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 2. 中层GIF动画 */
+.film-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.film-texture img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 213.336vh;  /* 16:9 比例 * 120% */
+    height: 120vh;
+    min-width: 120vw;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    opacity: 0.08;
+    mix-blend-mode: soft-light;
+    animation: slowPlay 20s steps(10) infinite;
+    will-change: transform;
+}
+
+/* 3. 顶层噪点纹理 */
+.noise-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./images/noise-texture.jpg');
+    background-size: cover;
+    opacity: 0.1;
+    z-index: 3;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* GIF动画效果 */
+@keyframes slowPlay {
+    0% { 
+        opacity: 0.08;
+        filter: brightness(1);
+    }
+    25% {
+        opacity: 0.07;
+        filter: brightness(0.98);
+    }
+    50% {
+        opacity: 0.06;
+        filter: brightness(0.95);
+    }
+    75% {
+        opacity: 0.07;
+        filter: brightness(0.98);
+    }
+    100% {
+        opacity: 0.08;
+        filter: brightness(1);
+    }
+}
+
+/* 适配窄屏 */
+@media (max-aspect-ratio: 16/9) {
+    .film-texture img {
+        width: 120vw;
+        height: 67.5vw;
+        min-height: 120vh;
+    }
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    z-index: 20;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 导航链接样式 */
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    transition: opacity 0.3s ease;
+    position: relative;
+    padding: 0.5rem 0;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Hero 部分样式 */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    z-index: 10;
+}
+
+.hero h1 {
+    font-size: 8rem;
+    font-weight: 800;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: -0.05em;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+    text-transform: uppercase;
+    position: relative;
+    animation: glitch 4s infinite;
+}
+
+.hero h1::before,
+.hero h1::after {
+    content: 'Fragment of Chaos';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero h1::before {
+    animation: glitch-1 4s infinite linear alternate-reverse;
+    text-shadow: 4px 0 #ff0000;
+    left: 4px;
+}
+
+.hero h1::after {
+    animation: glitch-2 4s infinite linear alternate-reverse;
+    text-shadow: -4px 0 #00ffff;
+    left: -4px;
+}
+
+@keyframes glitch-1 {
+    0%, 100% { transform: none; opacity: 0.8; }
+    50% { transform: skew(-2deg); opacity: 0; }
+    51% { transform: none; opacity: 0.8; }
+    60% { transform: skew(4deg); opacity: 0.8; }
+    80% { transform: none; opacity: 0; }
+    81% { transform: skew(2deg); opacity: 0.8; }
+}
+
+@keyframes glitch-2 {
+    0%, 100% { transform: none; opacity: 0.8; }
+    40% { transform: skew(2deg); opacity: 0; }
+    41% { transform: none; opacity: 0.8; }
+    70% { transform: skew(-4deg); opacity: 0.8; }
+    90% { transform: none; opacity: 0; }
+    91% { transform: skew(-2deg); opacity: 0.8; }
+}
+
+/* 英文标语样式 */
+.hero p {
+    font-size: 2.5rem;
+    letter-spacing: 0.5em;
+    font-weight: 300;
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-top: 0.5rem;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    position: relative;
+    animation: subGlitch 5s infinite;
+}
+
+/* 副标题故障效果 */
+.hero p::before,
+.hero p::after {
+    content: 'BEYOND THE BOUNDARIES OF IMAGINATION';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p::before {
+    animation: subGlitch-1 5s infinite linear alternate-reverse;
+    text-shadow: 2px 0 #ff0000;
+    left: 2px;
+    opacity: 0.5;
+}
+
+.hero p::after {
+    animation: subGlitch-2 5s infinite linear alternate-reverse;
+    text-shadow: -2px 0 #00ffff;
+    left: -2px;
+    opacity: 0.5;
+}
+
+/* 副标题故障动画 */
+@keyframes subGlitch-1 {
+    0%, 100% { transform: none; opacity: 0.5; }
+    50% { transform: skew(-1deg); opacity: 0; }
+    51% { transform: none; opacity: 0.5; }
+    60% { transform: skew(2deg); opacity: 0.5; }
+    80% { transform: none; opacity: 0; }
+    81% { transform: skew(1deg); opacity: 0.5; }
+}
+
+@keyframes subGlitch-2 {
+    0%, 100% { transform: none; opacity: 0.5; }
+    40% { transform: skew(1deg); opacity: 0; }
+    41% { transform: none; opacity: 0.5; }
+    70% { transform: skew(-2deg); opacity: 0.5; }
+    90% { transform: none; opacity: 0; }
+    91% { transform: skew(-1deg); opacity: 0.5; }
+}
+
+/* 添加文字纹理效果 */
+.hero p::before {
+    content: 'BEYOND THE BOUNDARIES OF IMAGINATION';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(to right, #FFD700, #FFA500),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    mix-blend-mode: multiply;
+    animation: textureNoise 8s linear infinite;
+}
+
+/* 文字纹理动画 */
+@keyframes textureNoise {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.gallery {
+    padding: 8rem 4rem;
+    background: var(--background-color);
+    position: relative;
+    z-index: 10;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    aspect-ratio: 3/2;
+    background: var(--hover-color);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    min-height: 300px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.gallery-item-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-item-title {
+    transform: translateY(0);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* 动画类 */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 碎片图标样式 */
+.fragment-icon {
+    text-align: center;
+    margin-bottom: 6rem;
+    position: relative;
+    display: inline-block;
+    animation: iconGlitch 4s infinite;
+}
+
+.fragment-group {
+    animation: fragmentRotate 20s linear infinite;
+}
+
+.glitch-path {
+    animation: pathGlitch 2s infinite;
+}
+
+.glitch-path-2 {
+    animation: pathGlitch 2s infinite reverse;
+}
+
+@keyframes fragmentRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pathGlitch {
+    0%, 100% { opacity: 0.5; transform: translate(0, 0); }
+    50% { opacity: 0.8; transform: translate(1px, -1px); }
+    75% { opacity: 0.3; transform: translate(-1px, 1px); }
+}
+
+@keyframes iconGlitch {
+    0%, 100% { transform: scale(1); filter: none; }
+    50% { transform: scale(1.05) skew(2deg); filter: hue-rotate(90deg); }
+    75% { transform: scale(0.95) skew(-2deg); filter: hue-rotate(-90deg); }
+}
+
+/* 调整导航栏字体 */
+.nav-links a {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+}
+
+/* 移除旧的section-title样式 */
+.section-title {
+    text-align: center;
+    margin-bottom: 6rem;
+    font-size: 3rem;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+    margin-bottom: 4rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-color);
+    transform: scaleX(0.3);
+    transition: transform 0.3s ease;
+}
+
+.section-title:hover::after {
+    transform: scaleX(1);
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 2rem;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+.modal-content {
+    max-width: 85%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    color: var(--primary-color);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+    color: var(--primary-color);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.modal-caption {
+    color: #fff;
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    text-align: center;
+    background: linear-gradient(to right, transparent, rgba(0,0,0,0.8), transparent);
+    padding: 1.5rem;
+    border-radius: 30px;
+    max-width: 800px;
+    margin: 2rem auto 0;
+}
+
+/* 修改导航按钮样式 */
+.modal-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 215, 0, 0.15);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    color: var(--primary-color);
+    font-size: 46px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    user-select: none;
+    line-height: 0.75;
+    text-align: center;
+    transform: translateY(calc(-50% - 1px));
+}
+
+.modal-prev {
+    left: 30px;
+}
+
+.modal-next {
+    right: 30px;
+}
+
+/* 添加图片切换动画 */
+.slide-left {
+    animation: slideLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-right {
+    animation: slideRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 添加响应式设计 */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1.5rem 2rem;
+    }
+    
+    .hero h1 {
+        font-size: 5rem;
+        letter-spacing: -0.03em;
+    }
+    
+    .hero p {
+        font-size: 1.8rem;
+        letter-spacing: 0.2em;
+    }
+    
+    .gallery {
+        padding: 4rem 2rem;
+    }
+    
+    .modal-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
+    
+    .modal-prev {
+        left: 15px;
+    }
+    
+    .modal-next {
+        right: 15px;
+    }
+}
+
+.modal-nav:hover {
+    background: var(--primary-color);
+    color: var(--background-color);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* 确保其他内容在视频之上 */
+.navbar {
+    z-index: 20;
+}
+
+.hero, .gallery {
+    z-index: 10;
+}
+
+.modal {
+    z-index: 100;
+}
+
+/* 修改 logo 样式 */
+.logo {
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+}
+
+.logo svg {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    stroke: var(--primary-color);
+    stroke-width: 3;
+}
+
+.logo svg circle,
+.logo svg path {
+    stroke: var(--primary-color);
+    stroke-width: 3;
+}
+
+/* 悬停效果 - 更加平滑 */
+.logo:hover {
+    transform: scale(1.1);
+}
+
+.logo:hover svg {
+    filter: drop-shadow(0 0 12px var(--primary-color));
+    stroke-width: 4;
+}
+
+/* 移除之前的故障效果 */
+.logo::before,
+.logo::after {
+    display: none;
+}
+
+/* About 区域样式 */
+.about {
+    padding: 8rem 4rem;
+    background: var(--background-color);
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-text {
+    margin-top: 4rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    opacity: 0.9;
+    letter-spacing: 0.02em;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-text p:first-child {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.about-text p:last-child {
+    font-weight: 300;
+    opacity: 0.95;
+}
+
+.about-text p {
+    margin-bottom: 2rem;
+    padding: 0 2rem;
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .about {
+        padding: 4rem 2rem;
+    }
+    
+    .about-text {
+        font-size: 1.4rem;
+    }
+}
+
+/* 社交媒体图标容器 */
+.logo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.social-icons {
+    position: absolute;
+    left: 60px;
+    display: flex;
+    gap: 1.2rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.social-icons.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+}
+
+.social-icon {
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.social-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px var(--primary-color));
+}
+
+/* 特别调整 Artstation 图标 */
+.social-icon.artstation img {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(80%) sepia(50%) saturate(1000%) hue-rotate(360deg);  /* 转换为金色 */
+    transition: all 0.3s ease;
+}
+
+.social-icon.artstation:hover img {
+    filter: brightness(0) invert(80%) sepia(50%) saturate(1000%) hue-rotate(360deg) drop-shadow(0 0 8px var(--primary-color));
+}
+
+/* 移除之前的 SVG 相关样式 */
+.social-icon.artstation svg,
+.social-icon.artstation svg path {
+    display: none;
+}
+
+/* 修改logo动画 */
+.logo {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logo.active {
+    transform: rotate(45deg);
+}
+
+/* 邮件图标特别样式 */
+.social-icon.email svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.social-icon.email:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px var(--primary-color));
+}
+
+.contact-info {
+    margin-top: 4rem;
+    opacity: 0.9;
+}
+
+.contact-info p {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.email-link {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.email-link:hover {
+    filter: drop-shadow(0 0 8px var(--primary-color));
+}

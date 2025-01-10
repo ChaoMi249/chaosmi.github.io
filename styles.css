@@ -2,13 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #FFD700;
+    --primary-color: #c4b36e;
     --text-color: #FFFFFF;
     --background-color: #0A0A0A;
     --hover-color: #1A1A1A;
     --nav-bg: rgba(10, 10, 10, 0.95);
-    --accent-color: #FFD700;
-    --gradient: linear-gradient(45deg, #FFD700, #FFA500);
+    --accent-color: #9a8a4d;
+    --gradient: linear-gradient(45deg, #9a8a4d, #c4b36e);
 }
 
 * {
@@ -125,7 +125,7 @@ body {
     background: var(--nav-bg);
     backdrop-filter: blur(10px);
     z-index: 20;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(196, 179, 110, 0.1);
 }
 
 /* 导航链接样式 */
@@ -137,14 +137,15 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--primary-color);
     font-size: 1.1rem;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
     position: relative;
     padding: 0.5rem 0;
     font-family: 'Rajdhani', sans-serif;
     font-weight: 500;
     letter-spacing: 0.1em;
+    opacity: 0.8;
 }
 
 .nav-links a::after {
@@ -157,10 +158,18 @@ body {
     background: var(--primary-color);
     transform: scaleX(0);
     transition: transform 0.3s ease;
+    opacity: 0.8;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+    text-shadow: 0 0 8px var(--primary-color);
 }
 
 .nav-links a:hover::after {
     transform: scaleX(1);
+    opacity: 1;
+    box-shadow: 0 0 8px var(--primary-color);
 }
 
 /* Hero 部分样式 */
@@ -183,11 +192,11 @@ body {
     font-weight: 800;
     font-family: 'Rajdhani', sans-serif;
     letter-spacing: -0.05em;
-    background: var(--gradient);
+    background: linear-gradient(45deg, #9a8a4d, #c4b36e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
-    text-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+    text-shadow: 0 0 30px rgba(154, 138, 77, 0.2);
     text-transform: uppercase;
     position: relative;
     animation: glitch 4s infinite;
@@ -201,39 +210,41 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--gradient);
+    background: linear-gradient(45deg, #9a8a4d, #c4b36e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero h1::before {
-    animation: glitch-1 4s infinite linear alternate-reverse;
-    text-shadow: 4px 0 #ff0000;
-    left: 4px;
+    animation: glitch-1 8s infinite linear alternate-reverse;
+    text-shadow: 2px 0 rgba(154, 77, 77, 0.2);
+    left: 2px;
+    opacity: 0.4;
 }
 
 .hero h1::after {
-    animation: glitch-2 4s infinite linear alternate-reverse;
-    text-shadow: -4px 0 #00ffff;
-    left: -4px;
+    animation: glitch-2 8s infinite linear alternate-reverse;
+    text-shadow: -2px 0 rgba(77, 154, 154, 0.2);
+    left: -2px;
+    opacity: 0.4;
 }
 
 @keyframes glitch-1 {
-    0%, 100% { transform: none; opacity: 0.8; }
-    50% { transform: skew(-2deg); opacity: 0; }
-    51% { transform: none; opacity: 0.8; }
-    60% { transform: skew(4deg); opacity: 0.8; }
+    0%, 100% { transform: none; opacity: 0.3; }
+    50% { transform: skew(-0.5deg); opacity: 0; }
+    51% { transform: none; opacity: 0.3; }
+    60% { transform: skew(1deg); opacity: 0.3; }
     80% { transform: none; opacity: 0; }
-    81% { transform: skew(2deg); opacity: 0.8; }
+    81% { transform: skew(0.5deg); opacity: 0.3; }
 }
 
 @keyframes glitch-2 {
-    0%, 100% { transform: none; opacity: 0.8; }
-    40% { transform: skew(2deg); opacity: 0; }
-    41% { transform: none; opacity: 0.8; }
-    70% { transform: skew(-4deg); opacity: 0.8; }
+    0%, 100% { transform: none; opacity: 0.3; }
+    40% { transform: skew(0.5deg); opacity: 0; }
+    41% { transform: none; opacity: 0.3; }
+    70% { transform: skew(-1deg); opacity: 0.3; }
     90% { transform: none; opacity: 0; }
-    91% { transform: skew(-2deg); opacity: 0.8; }
+    91% { transform: skew(-0.5deg); opacity: 0.3; }
 }
 
 /* 英文标语样式 */
@@ -351,22 +362,26 @@ body {
     overflow: hidden;
     border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transform: translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     aspect-ratio: 3/2;
     background: linear-gradient(110deg, #1a1a1a 8%, #222 18%, #1a1a1a 33%);
     background-size: 200% 100%;
     animation: shine 1.5s linear infinite;
-    border: 1px solid rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(196, 179, 110, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     min-height: 300px;
+    will-change: transform;
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
-    background-color: rgba(255, 0, 0, 0.1);
+    transform: scale(1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .gallery-item-title {
@@ -376,17 +391,23 @@ body {
     right: 0;
     padding: 1rem;
     background: rgba(0, 0, 0, 0.7);
-    color: white;
+    color: var(--primary-color);
     transform: translateY(100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    backdrop-filter: blur(4px);
 }
 
-.gallery-item:hover .gallery-item-title {
-    transform: translateY(0);
+.gallery-item:hover {
+    transform: translateZ(0) scale(1.02);
 }
 
 .gallery-item:hover img {
     transform: scale(1.05);
+}
+
+.gallery-item:hover .gallery-item-title {
+    transform: translateY(0);
 }
 
 /* 动画类 */
@@ -532,15 +553,27 @@ body {
 }
 
 .modal-caption {
-    color: #fff;
-    margin-top: 1rem;
-    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-top: 2rem;
+    font-size: 1.6rem;
+    font-family: 'Rajdhani', sans-serif;
     text-align: center;
-    background: linear-gradient(to right, transparent, rgba(0,0,0,0.8), transparent);
-    padding: 1.5rem;
+    background: rgba(10, 10, 10, 0.85);
+    padding: 1.5rem 2rem;
     border-radius: 30px;
     max-width: 800px;
-    margin: 2rem auto 0;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    transform: translateZ(0);
+    will-change: transform;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+}
+
+/* 简化悬停效果，只保留文字发光 */
+.modal-caption:hover {
+    text-shadow: 0 0 8px rgba(196, 179, 110, 0.2);
 }
 
 /* 修改导航按钮样式 */
@@ -806,12 +839,13 @@ body {
 .social-icon.artstation img {
     width: 22px;
     height: 22px;
-    filter: brightness(0) invert(80%) sepia(50%) saturate(1000%) hue-rotate(360deg);  /* 转换为金色 */
+    filter: brightness(0) invert(65%) sepia(19%) saturate(368%) hue-rotate(12deg) brightness(89%) contrast(86%);
     transition: all 0.3s ease;
 }
 
 .social-icon.artstation:hover img {
-    filter: brightness(0) invert(80%) sepia(50%) saturate(1000%) hue-rotate(360deg) drop-shadow(0 0 8px var(--primary-color));
+    filter: brightness(0) invert(65%) sepia(19%) saturate(368%) hue-rotate(12deg) brightness(89%) contrast(86%) drop-shadow(0 0 8px var(--primary-color));
+    transform: scale(1.2);
 }
 
 /* 移除之前的 SVG 相关样式 */
@@ -885,5 +919,60 @@ body {
 @keyframes shine {
     to {
         background-position-x: -200%;
+    }
+}
+
+/* 添加移动端导航样式 */
+@media (max-width: 768px) {
+    /* 调整导航栏布局 */
+    .navbar {
+        padding: 1rem;
+    }
+
+    /* 修改社交图标容器样式 */
+    .social-icons {
+        position: fixed;
+        left: 0;
+        bottom: 0;  /* 改为底部显示 */
+        width: 100%;
+        padding: 1rem;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        transform: translateY(100%);  /* 默认隐藏 */
+        z-index: 30;
+        border-top: 1px solid rgba(196, 179, 110, 0.1);
+    }
+
+    /* 修改社交图标显示动画 */
+    .social-icons.active {
+        transform: translateY(0);
+    }
+
+    /* 调整导航链接间距 */
+    .nav-links {
+        gap: 1rem;
+    }
+
+    /* 调整导航链接字体大小 */
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+
+    /* 调整 logo 大小 */
+    .logo svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* 添加底部安全区域（针对 iPhone） */
+@supports (padding: max(0px)) {
+    @media (max-width: 768px) {
+        .social-icons {
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
     }
 }

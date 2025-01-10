@@ -113,12 +113,6 @@ const works = [
         title: 'Lost Under - The End',
         image: './images/Lost Under_End.jpg',
         description: 'The final chapter of the Lost Under series, showcasing the ending of the story.'
-    },
-    {
-        id: 20,
-        title: '新作品标题',
-        image: './images/新图片.jpg',
-        description: '作品描述'
     }
 ];
 

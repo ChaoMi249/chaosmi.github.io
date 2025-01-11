@@ -666,6 +666,10 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+        /* 确保按钮位置对称 */
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .modal-nav span {
@@ -678,12 +682,13 @@ body {
         height: 100%;
     }
 
+    /* 严格控制左右位置 */
     .modal-prev {
-        left: 15px;  /* 统一左边距 */
+        left: 10px;  /* 减小边距 */
     }
 
     .modal-next {
-        right: 15px;  /* 与左边保持一致 */
+        right: 10px;  /* 与左边完全一致 */
     }
 
     .modal-caption {
@@ -1614,6 +1619,10 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+        /* 确保按钮位置对称 */
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .modal-nav span {
@@ -1626,12 +1635,13 @@ body {
         height: 100%;
     }
 
+    /* 严格控制左右位置 */
     .modal-prev {
-        left: 15px;  /* 统一左边距 */
+        left: 10px;  /* 减小边距 */
     }
 
     .modal-next {
-        right: 15px;  /* 与左边保持一致 */
+        right: 10px;  /* 与左边完全一致 */
     }
 
     .modal-caption {

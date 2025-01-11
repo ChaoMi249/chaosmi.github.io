@@ -628,7 +628,8 @@ body {
     justify-content: center;
     width: 100%;
     height: 100%;
-    margin-top: -18px;
+    margin: 0;
+    line-height: 1;
 }
 
 .modal-prev {
@@ -756,11 +757,9 @@ body {
 }
 
 .modal-nav:hover {
-    animation: navButtonFlicker 4s infinite;
-    background: var(--primary-color);
-    color: var(--background-color);
+    opacity: 1;
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    text-shadow: 0 0 20px var(--primary-color);
 }
 
 /* 确保其他内容在视频之上 */
@@ -1261,7 +1260,9 @@ body {
 
 /* 导航按钮悬停效果 */
 .modal-nav:hover {
-    animation: navButtonFlicker 4s infinite;
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    text-shadow: 0 0 20px var(--primary-color);
 }
 
 /* 添加通用闪烁动画 */
@@ -1571,7 +1572,8 @@ body {
     justify-content: center;
     width: 100%;
     height: 100%;
-    margin-top: -18px;  /* 调整垂直位置 */
+    margin: 0;
+    line-height: 1;
 }
 
 .modal-prev {

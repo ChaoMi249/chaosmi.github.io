@@ -584,7 +584,7 @@ body {
     object-fit: contain;
     border-radius: 12px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
 }
 
 /* 修改标题样式 */
@@ -699,7 +699,7 @@ body {
 
 @keyframes slideLeft {
     from {
-        transform: translateX(50px);
+        transform: translateX(30px);
         opacity: 0;
     }
     to {
@@ -710,7 +710,7 @@ body {
 
 @keyframes slideRight {
     from {
-        transform: translateX(-50px);
+        transform: translateX(-30px);
         opacity: 0;
     }
     to {
@@ -746,11 +746,11 @@ body {
     }
     
     .modal-prev {
-        left: 15px;
+        left: 10px;
     }
     
     .modal-next {
-        right: 15px;
+        right: 10px;
     }
 }
 
@@ -1529,7 +1529,7 @@ body {
     object-fit: contain;
     border-radius: 12px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
 }
 
 .modal-caption {

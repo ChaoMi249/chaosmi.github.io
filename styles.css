@@ -659,20 +659,58 @@ body {
 
 /* 移动端适配 */
 @media (max-width: 768px) {
+    /* 导航栏调整 */
+    .navbar {
+        padding: 1.5rem 2rem;
+    }
+    
+    /* Hero 区域调整 */
+    .hero h1 {
+        font-size: 5rem;
+        letter-spacing: -0.03em;
+    }
+    
+    .hero p {
+        font-size: 1.8rem;
+        letter-spacing: 0.2em;
+    }
+    
+    .gallery {
+        padding: 4rem 2rem;
+    }
+
+    /* 模态框调整 */
+    .modal {
+        padding: 0;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        max-height: 85vh;
+        border-radius: 0;
+    }
+
     .modal-nav {
+        width: 40px;
+        height: 40px;
         font-size: 40px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
     }
 
-    .modal-nav span {
-        margin-top: -12px;  /* 移动端垂直位置调整 */
+    .modal-prev {
+        left: 10px;
     }
 
-    .modal-prev span {
-        margin-right: -2px;
+    .modal-next {
+        right: 10px;
     }
 
-    .modal-next span {
-        margin-left: -2px;
+    .modal-caption {
+        margin-top: 1rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        max-width: 90%;
     }
 }
 

@@ -666,7 +666,6 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        /* 确保按钮位置对称 */
         position: fixed;
         top: 50%;
         transform: translateY(-50%);
@@ -682,13 +681,12 @@ body {
         height: 100%;
     }
 
-    /* 严格控制左右位置 */
     .modal-prev {
-        left: 10px;  /* 减小边距 */
+        left: 15px;
     }
 
     .modal-next {
-        right: 10px;  /* 与左边完全一致 */
+        right: 15px;
     }
 
     .modal-caption {
@@ -1619,7 +1617,6 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        /* 确保按钮位置对称 */
         position: fixed;
         top: 50%;
         transform: translateY(-50%);
@@ -1635,13 +1632,12 @@ body {
         height: 100%;
     }
 
-    /* 严格控制左右位置 */
     .modal-prev {
-        left: 10px;  /* 减小边距 */
+        left: 15px;
     }
 
     .modal-next {
-        right: 10px;  /* 与左边完全一致 */
+        right: 15px;
     }
 
     .modal-caption {

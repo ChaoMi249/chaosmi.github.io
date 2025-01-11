@@ -127,18 +127,22 @@ function loadWorks() {
         const item = document.createElement('div');
         item.className = 'gallery-item fade-in';
         
+        const thumbnailSrc = work.image.replace('.jpg', '_thumb.jpg');
+        
         item.innerHTML = `
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+            <img src="${thumbnailSrc}" 
                  data-src="${work.image}" 
                  alt="${work.title}"
                  loading="lazy"
                  class="lazy"
-                 onerror="this.style.backgroundColor='rgba(255,0,0,0.2)'"
-                 onload="console.log('图片加载成功:', this.src)">
+                 width="800"
+                 height="450"
+                 decoding="async"
+                 onload="this.classList.add('loaded')">
             <div class="gallery-item-title">${work.title}</div>
         `;
         
-        // 修改点击事件，传入索引
+        // 添加回点击事件
         item.addEventListener('click', () => {
             openModal(work.image, work.title, work.description, index);
         });
@@ -146,20 +150,29 @@ function loadWorks() {
         gallery.appendChild(item);
     });
 
-    // 添加懒加载观察器
-    const lazyImages = document.querySelectorAll('img.lazy');
+    // 使用 Intersection Observer 优化
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
+                // 预加载高清图片
+                const highResImage = new Image();
+                highResImage.src = img.dataset.src;
+                highResImage.onload = () => {
+                    img.src = highResImage.src;
+                    img.classList.remove('lazy');
+                };
                 observer.unobserve(img);
             }
         });
+    }, {
+        rootMargin: '50px 0px', // 提前加载
+        threshold: 0.1
     });
 
-    lazyImages.forEach(img => imageObserver.observe(img));
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+        imageObserver.observe(img);
+    });
 }
 
 // 添加模态框功能
@@ -220,11 +233,11 @@ function navigateImage(direction) {
 
 // 更新导航按钮状态
 function updateNavigationButtons() {
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
+    const prevButton = document.querySelector('.modal-prev');
+    const nextButton = document.querySelector('.modal-next');
     
-    prevButton.style.display = currentImageIndex === 0 ? 'none' : 'block';
-    nextButton.style.display = currentImageIndex === works.length - 1 ? 'none' : 'block';
+    prevButton.style.display = currentImageIndex === 0 ? 'none' : 'flex';
+    nextButton.style.display = currentImageIndex === works.length - 1 ? 'none' : 'flex';
 }
 
 // 关闭模态框
@@ -265,13 +278,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 
-    // 添加导航按钮事件监听
-    document.getElementById('prevButton').addEventListener('click', (e) => {
+    // 修改导航按钮事件监听
+    document.querySelector('.modal-prev').addEventListener('click', (e) => {
         e.stopPropagation();
         navigateImage(-1);
     });
     
-    document.getElementById('nextButton').addEventListener('click', (e) => {
+    document.querySelector('.modal-next').addEventListener('click', (e) => {
         e.stopPropagation();
         navigateImage(1);
     });

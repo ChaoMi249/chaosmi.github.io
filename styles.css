@@ -400,11 +400,12 @@ body {
     height: 100%;
     object-fit: cover;
     transform: scale(1);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     will-change: transform, opacity;
     backface-visibility: hidden;
     opacity: 0.7;
-    filter: brightness(0.85);
+    filter: brightness(0.85) blur(0px);
+    transform: translateZ(0);
 }
 
 .gallery-item-title {
@@ -553,7 +554,7 @@ body {
     animation: sectionTitleFlicker 10s infinite;
 }
 
-/* 模态框样式 */
+/* 修改模态框样式 */
 .modal {
     display: none;
     position: fixed;
@@ -577,53 +578,29 @@ body {
     opacity: 1;
 }
 
+/* 修改图片容器样式 */
 .modal-content {
     max-width: 85%;
-    max-height: 85vh;
+    max-height: 80vh;
     object-fit: contain;
     border-radius: 12px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.modal-close {
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    color: var(--primary-color);
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 2001;
-    transition: all 0.3s ease;
-}
-
-.modal-close:hover {
-    animation: closeFlicker 4s infinite;
-}
-
+/* 修改标题样式 */
 .modal-caption {
     color: var(--primary-color);
     margin-top: 2rem;
-    font-size: 1.6rem;
+    font-size: 1.2rem;  /* 减小字体大小 */
     font-family: 'Rajdhani', sans-serif;
     text-align: center;
     background: rgba(10, 10, 10, 0.85);
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem;
     border-radius: 30px;
     max-width: 800px;
     backdrop-filter: blur(8px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-    transform: translateZ(0);
-    will-change: transform;
-    letter-spacing: 0.02em;
-    line-height: 1.6;
-}
-
-/* 简化悬停效果，只保留文字发光 */
-.modal-caption:hover {
-    text-shadow: 0 0 8px rgba(196, 179, 110, 0.2);
+    transition: all 0.3s ease;
 }
 
 /* 修改导航按钮样式 */
@@ -636,26 +613,67 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 215, 0, 0.15);
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
     color: var(--primary-color);
-    font-size: 46px;
-    padding: 0;
-    margin: 0;
+    font-size: 60px;
     cursor: pointer;
     user-select: none;
-    line-height: 0.75;
-    text-align: center;
-    transform: translateY(calc(-50% - 1px));
+    z-index: 2001;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    line-height: 0;  /* 确保箭头垂直居中 */
+}
+
+/* 修改箭头位置 */
+.modal-nav span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: -18px;  /* 调整垂直位置 */
+}
+
+/* 分别调整左右箭头 */
+.modal-prev span {
+    margin-right: -4px;  /* 调整左箭头水平位置 */
+}
+
+.modal-next span {
+    margin-left: -4px;  /* 调整右箭头水平位置 */
 }
 
 .modal-prev {
-    left: 30px;
+    left: 40px;
 }
 
 .modal-next {
-    right: 30px;
+    right: 40px;
+}
+
+/* 统一悬停效果 */
+.modal-nav:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    text-shadow: 0 0 20px var(--primary-color);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .modal-nav {
+        font-size: 40px;
+    }
+
+    .modal-nav span {
+        margin-top: -12px;  /* 移动端垂直位置调整 */
+    }
+
+    .modal-prev span {
+        margin-right: -2px;
+    }
+
+    .modal-next span {
+        margin-left: -2px;
+    }
 }
 
 /* 添加图片切换动画 */
@@ -1394,5 +1412,174 @@ body {
     .gallery,
     .about {
         padding: 6rem 1.5rem;
+    }
+}
+
+/* 优化图片加载样式 */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: all 0.3s ease;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    opacity: 0.7;
+    filter: brightness(0.85) blur(0px);
+    transform: translateZ(0);
+}
+
+/* 添加图片加载过渡效果 */
+.gallery-item img.lazy {
+    filter: brightness(0.85) blur(5px);
+    transform: scale(0.95);
+}
+
+.gallery-item img.loaded {
+    filter: brightness(0.85) blur(0);
+    transform: scale(1);
+}
+
+/* 针对安卓设备的性能优化 */
+@supports not (-webkit-touch-callout: none) {
+    .gallery-item {
+        contain: content;  /* 优化渲染性能 */
+    }
+
+    .gallery-item img {
+        image-rendering: optimizeSpeed;  /* 优化图片渲染 */
+    }
+}
+
+/* 针对低性能设备的优化 */
+@media (max-width: 768px) and (max-resolution: 160dpi) {
+    .gallery-grid {
+        contain: content;
+        will-change: transform;
+    }
+    
+    .gallery-item img {
+        image-rendering: optimizeSpeed;
+        transform: translateZ(0);
+    }
+}
+
+/* 修改关闭按钮样式 */
+.modal-close {
+    position: fixed;
+    top: 30px;  /* 调整位置 */
+    right: 40px;  /* 调整位置 */
+    color: var(--primary-color);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    animation: closeFlicker 4s infinite;
+    transform: scale(1.1);
+}
+
+/* 优化模态框布局 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 2rem;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+/* 修改导航按钮样式 */
+.modal-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 60px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 2001;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    line-height: 0;  /* 确保箭头垂直居中 */
+}
+
+/* 修改箭头位置 */
+.modal-nav span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: -18px;  /* 调整垂直位置 */
+}
+
+/* 分别调整左右箭头 */
+.modal-prev span {
+    margin-right: -4px;  /* 调整左箭头水平位置 */
+}
+
+.modal-next span {
+    margin-left: -4px;  /* 调整右箭头水平位置 */
+}
+
+.modal-prev {
+    left: 40px;
+}
+
+.modal-next {
+    right: 40px;
+}
+
+/* 统一悬停效果 */
+.modal-nav:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    text-shadow: 0 0 20px var(--primary-color);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .modal-nav {
+        font-size: 40px;
+    }
+
+    .modal-nav span {
+        margin-top: -12px;  /* 移动端垂直位置调整 */
+    }
+
+    .modal-prev span {
+        margin-right: -2px;
+    }
+
+    .modal-next span {
+        margin-left: -2px;
     }
 }

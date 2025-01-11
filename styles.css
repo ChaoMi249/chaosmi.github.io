@@ -344,9 +344,30 @@ body {
 
 .gallery {
     padding: 8rem 4rem;
-    background: var(--background-color);
     position: relative;
     z-index: 10;
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 10, 0.98),
+        rgba(12, 12, 12, 0.98)
+    );
+    border-top: 1px solid rgba(196, 179, 110, 0.05);
+}
+
+.gallery::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 1px;
+    height: 30%;
+    transform: translateY(-50%);
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(196, 179, 110, 0.1),
+        transparent
+    );
+    left: 2rem;
 }
 
 .gallery-grid {
@@ -765,13 +786,29 @@ body {
 /* About 区域样式 */
 .about {
     padding: 8rem 4rem;
-    background: var(--background-color);
     position: relative;
     z-index: 10;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: linear-gradient(
+        to bottom,
+        rgba(12, 12, 12, 0.98),
+        rgba(10, 10, 10, 0.98)
+    );
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 1px;
+    height: 30%;
+    transform: translateY(-50%);
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(196, 179, 110, 0.1),
+        transparent
+    );
+    right: 2rem;
 }
 
 .about-content {
@@ -1251,4 +1288,111 @@ body {
     60% { opacity: 0.8; }
     60.1% { opacity: 0.4; }
     60.2% { opacity: 0.8; }
+}
+
+/* 修改移动端布局 */
+@media (max-width: 768px) {
+    /* 调整作品区域内边距 */
+    .gallery {
+        padding: 6rem 1.5rem;  /* 减小左右内边距 */
+    }
+    
+    /* 调整网格布局 */
+    .gallery-grid {
+        grid-template-columns: 1fr;  /* 单列显示 */
+        gap: 2rem;  /* 减小间距 */
+    }
+    
+    /* 调整作品项目大小 */
+    .gallery-item {
+        min-height: 200px;  /* 进一步减小最小高度 */
+        aspect-ratio: 16/9;  /* 更适合手机屏幕的比例 */
+        margin: 0 auto;  /* 居中显示 */
+        max-width: 500px;  /* 限制最大宽度 */
+        width: 100%;  /* 确保填充可用空间 */
+    }
+
+    /* 优化标题显示 */
+    .gallery-item-title {
+        padding: 0.8rem;  /* 减小内边距 */
+        font-size: 0.9rem;  /* 减小字体 */
+        transform: translateY(0);  /* 默认显示标题 */
+        background: rgba(0, 0, 0, 0.8);  /* 增加背景不透明度 */
+    }
+
+    /* 调整触摸反馈 */
+    .gallery-item:active {
+        transform: scale(0.98);  /* 轻微缩小效果 */
+        transition: transform 0.2s ease;
+    }
+}
+
+/* 针对安卓设备的特定优化 */
+@supports not (-webkit-touch-callout: none) {
+    @media (max-width: 768px) {
+        /* 安卓设备特有的滚动优化 */
+        .gallery-grid {
+            overscroll-behavior: contain;  /* 防止过度滚动 */
+            touch-action: pan-y pinch-zoom;  /* 优化触摸操作 */
+        }
+
+        /* 优化图片加载 */
+        .gallery-item img {
+            will-change: transform, opacity;
+            transform: translateZ(0);  /* 启用硬件加速 */
+        }
+
+        /* 调整点击状态样式 */
+        .gallery-item:active {
+            background: rgba(196, 179, 110, 0.05);  /* 添加轻微背景效果 */
+        }
+
+        /* 优化安卓设备的文字渲染 */
+        .gallery-item-title {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
+}
+
+/* 针对低性能安卓设备的优化 */
+@media (max-width: 768px) and (max-resolution: 160dpi) {
+    /* 减少动画效果 */
+    .gallery-item {
+        transition: transform 0.2s ease;
+    }
+
+    .gallery-item img {
+        transition: opacity 0.2s ease;
+    }
+
+    /* 简化阴影效果 */
+    .gallery-item {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* 添加区域分隔线效果 */
+.section-divider {
+    height: 0.5px;
+    background: rgba(196, 179, 110, 0.05);
+    position: relative;
+}
+
+/* 移除之前的复杂动画效果 */
+.section-divider::after {
+    display: none;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .gallery::before,
+    .about::before {
+        display: none;  /* 在移动端隐藏侧边装饰线 */
+    }
+    
+    .gallery,
+    .about {
+        padding: 6rem 1.5rem;
+    }
 }
